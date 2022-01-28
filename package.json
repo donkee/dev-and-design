@@ -15,8 +15,10 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@sanity/block-content-to-react": "^3.0.0",
     "gatsby": "^4.6.0",
     "gatsby-plugin-image": "^2.6.0",
+    "gatsby-source-filesystem": "^4.6.0",
     "gatsby-source-sanity": "^7.3.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"

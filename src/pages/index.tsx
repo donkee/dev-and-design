@@ -1,4 +1,3 @@
-import { graphql } from 'gatsby';
 import * as React from 'react';
 
 // styles
@@ -15,21 +14,6 @@ const headingStyles = {
 
 // markup
 const IndexPage = ({ data, location }) => {
-  const generateAuthors = (data) => {
-    let authors = [];
-
-    data.allSanityAuthor.edges.forEach((edge) => {
-      authors.push(
-        <>
-          <span>{edge.node.name}</span>
-          <br />
-        </>
-      );
-    });
-
-    return authors;
-  };
-
   return (
     <main style={pageStyles}>
       <title>dev and design</title>
@@ -38,27 +22,9 @@ const IndexPage = ({ data, location }) => {
         <span role='img' aria-label='Party popper emojis'>
           🎉🎉🎉
         </span>
-        <span>{generateAuthors(data)}</span>
       </h1>
     </main>
   );
 };
 
-const author = (name: string) => {
-  return <span>{name}</span>;
-};
-
 export default IndexPage;
-
-export const pageQuery = graphql`
-  query getAuthors {
-    allSanityAuthor {
-      edges {
-        node {
-          id
-          name
-        }
-      }
-    }
-  }
-`;
