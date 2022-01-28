@@ -22,6 +22,13 @@ module.exports = {
         graphqlTag: 'default'
       }
     },
-    'gatsby-plugin-image'
+    'gatsby-plugin-image',
+    {
+      resolve: `gatsby-plugin-typescript`,
+      options: {
+        isTSX: true, // defaults to false
+        allExtensions: true // defaults to false
+      }
+    }
   ]
 };
