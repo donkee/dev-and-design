@@ -1,3 +1,4 @@
+import { graphql, Link } from 'gatsby';
 import * as React from 'react';
 
 // styles
@@ -13,7 +14,32 @@ const headingStyles = {
 };
 
 // markup
-const IndexPage = ({ data, location }) => {
+const IndexPage = ({ data }) => {
+  const posts = data.allSanityPost.edges;
+
+  const createPostLinks = () => {
+    const postLinks: React.ReactNode[] = [];
+    posts.forEach((node) => {
+      postLinks.push(
+        <span>
+          <h3>
+            <Link to={`/post/${node.node.slug.current}`}>
+              {node.node.title}
+            </Link>
+          </h3>
+          <span>
+            <Link to={`/author/${node.node.author.slug.current}`}>
+              {node.node.author.name}
+            </Link>{' '}
+            - {node.node._createdAt}
+          </span>
+        </span>
+      );
+    });
+
+    return postLinks;
+  };
+
   return (
     <main style={pageStyles}>
       <title>dev and design</title>
@@ -23,8 +49,32 @@ const IndexPage = ({ data, location }) => {
           🎉🎉🎉
         </span>
       </h1>
+      <h2>Top 20 posts:</h2>
+      <p>{createPostLinks()}</p>
     </main>
   );
 };
 
 export default IndexPage;
+
+export const query = graphql`
+  query {
+    allSanityPost(limit: 20) {
+      edges {
+        node {
+          _createdAt
+          slug {
+            current
+          }
+          author {
+            name
+            slug {
+              current
+            }
+          }
+          title
+        }
+      }
+    }
+  }
+`;
