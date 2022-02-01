@@ -26,7 +26,9 @@
     "gatsby-source-sanity": "^7.3.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "sass": "^1.49.3"
+    "react-konami-code": "^2.2.2",
+    "sass": "^1.49.3",
+    "turn-down-for-what": "^1.2.1"
   },
   "devDependencies": {
     "husky": "^6.0.0",

@@ -1,5 +1,7 @@
 import { Link } from 'gatsby';
 import React from 'react';
+import Konami from 'react-konami-code';
+import konami from '../tools/loaders/konami';
 import './layout.scss';
 
 const Layout = (props: { children: React.ReactNode }) => {
@@ -10,6 +12,7 @@ const Layout = (props: { children: React.ReactNode }) => {
           <Link to={'/'}>Home</Link>
         </nav>
       </header>
+      <Konami action={konami.action} timeout={konami.timeout}></Konami>
       <main>{props.children}</main>
     </div>
   );
