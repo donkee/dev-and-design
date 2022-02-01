@@ -1,3 +1,4 @@
+import { parseISO } from 'date-fns';
 import { graphql, Link } from 'gatsby';
 import * as React from 'react';
 
@@ -31,7 +32,7 @@ const IndexPage = ({ data }) => {
             <Link to={`/author/${node.node.author.slug.current}`}>
               {node.node.author.name}
             </Link>{' '}
-            - {node.node._createdAt}
+            - {parseISO(node.node._createdAt).toDateString()}
           </span>
         </span>
       );
@@ -45,7 +46,7 @@ const IndexPage = ({ data }) => {
       <title>dev and design</title>
       <h1 style={headingStyles}>
         Welcome to dev and design
-        <span role='img' aria-label='Party popper emojis'>
+        <span role="img" aria-label="Party popper emojis">
           🎉🎉🎉
         </span>
       </h1>

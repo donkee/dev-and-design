@@ -2,7 +2,13 @@ import { graphql } from 'gatsby';
 import React from 'react';
 
 const Author = ({ data }) => {
-  return <span>{data.allSanityAuthor.edges[0].node.name}</span>;
+  const name = data.allSanityAuthor.edges[0].node.name;
+  return (
+    <>
+      <title>{name} | dev and design</title>
+      <span>{name}</span>
+    </>
+  );
 };
 
 export default Author;

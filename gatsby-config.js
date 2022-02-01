@@ -29,6 +29,13 @@ module.exports = {
         isTSX: true, // defaults to false
         allExtensions: true // defaults to false
       }
-    }
+    },
+    {
+      resolve: `gatsby-plugin-layout`,
+      options: {
+        component: require.resolve(`./src/layouts/layout.tsx`)
+      }
+    },
+    'gatsby-plugin-sass'
   ]
 };
