@@ -25,7 +25,9 @@ const IndexPage = () => {
   let limit = 1;
   // TODO: sort these by date descending
   let query = `query allPost {
-                    allPost(limit: ${limit + 1}, offset: ${page * limit}) {
+                    allPost(limit: ${limit + 1}, offset: ${
+    page * limit
+  }, sort: [{_createdAt: DESC}]) {
                       _createdAt
                       slug {
                         current
