@@ -21,9 +21,11 @@ const linkStyles = {
 const IndexPage = () => {
   const [page, setPage] = useState(0);
   const [data, setData] = useState<any[]>([]);
+  const [isThereMore, setIsThereMore] = useState(false);
   let limit = 1;
+  // TODO: sort these by date descending
   let query = `query allPost {
-                    allPost(limit: 1, offset: ${page * limit}) {
+                    allPost(limit: ${limit + 1}, offset: ${page * limit}) {
                       _createdAt
                       slug {
                         current
@@ -44,14 +46,24 @@ const IndexPage = () => {
         query: query
       })
       .then((response) => {
-        setData((oldData) => oldData.concat(response.data.data.allPost));
+        let newData = response.data.data.allPost;
+
+        if (newData.length > limit) {
+          setIsThereMore(true);
+          setData((oldData) =>
+            oldData.concat(newData.slice(0, newData.length - 1))
+          );
+        } else {
+          setIsThereMore(false);
+          setData((oldData) => oldData.concat(newData));
+        }
       })
       .catch((_error) => {
         console.log(_error);
       });
   }, [page]);
 
-  const createPostLinks = () => {
+  const generatePostLinks = () => {
     if (data.length === 0) {
       return <></>;
     }
@@ -76,6 +88,18 @@ const IndexPage = () => {
     return postLinks;
   };
 
+  const generateLoadMoreLink = () => {
+    if (isThereMore) {
+      return (
+        <a onClick={() => setPage(page + 1)} style={linkStyles}>
+          Load More...
+        </a>
+      );
+    }
+
+    return <span>No more to load.</span>;
+  };
+
   return (
     <main style={pageStyles}>
       <title>dev and design</title>
@@ -86,12 +110,10 @@ const IndexPage = () => {
         </span>
       </h1>
       <h2>Top {limit * (page + 1)} posts:</h2>
-      {createPostLinks()}
+      {generatePostLinks()}
       <br />
       <br />
-      <a onClick={() => setPage(page + 1)} style={linkStyles}>
-        Load More...
-      </a>
+      {generateLoadMoreLink()}
     </main>
   );
 };
